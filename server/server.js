@@ -14,6 +14,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 
+
+
 //Appollo server with schemas
 const server = new ApolloServer({
   typeDefs,
@@ -28,7 +30,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
 
   
 
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
 
@@ -41,7 +43,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
 
     app.use(express.static(path.join(__dirname, '../client/dist')));
   
-    app.get('/', (req, res) => {
+    app.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, '../client/dist/index.html'));
     });
   }
@@ -59,4 +61,4 @@ const startApolloServer = async (typeDefs, resolvers) => {
 };
 
 
-startApolloServer(typeDefs, resolvers);
+startApolloServer();
